@@ -19,7 +19,6 @@ public interface OneTickBoltEnchantConfig extends Config
 		return "Label1";
 	}
 
-
 	@ConfigItem(
 		keyName = "example",
 		name = "Example config item",
