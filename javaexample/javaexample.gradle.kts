@@ -25,10 +25,10 @@ import ProjectVersions.openosrsVersion
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-version = "0.0.1"
+version = "1.0.1"
 
-project.extra["PluginName"] = "Java example plugin" // This is the name that is used in the external plugin manager panel
-project.extra["PluginDescription"] = "Java example plugin" // This is the description that is used in the external plugin manager panel
+project.extra["PluginName"] = "Enchant_Bolts" // This is the name that is used in the external plugin manager panel
+project.extra["PluginDescription"] = "Plugin to enchant bolts for you" // This is the description that is used in the external plugin manager panel
 
 dependencies {
     annotationProcessor(Libraries.lombok)
