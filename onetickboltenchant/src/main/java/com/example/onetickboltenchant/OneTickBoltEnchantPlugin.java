@@ -82,7 +82,10 @@ public class OneTickBoltEnchantPlugin extends Plugin
 		{
 			return;
 		}
-		OneTickBoltEnchantHotkeyListener.addTickCommand("enchantbolt", this);
+		if (runboltenchanting)
+		{
+			OneTickBoltEnchantHotkeyListener.addTickCommand("enchantbolt", this);
+		}
 	}
 
 	private void processCommands()

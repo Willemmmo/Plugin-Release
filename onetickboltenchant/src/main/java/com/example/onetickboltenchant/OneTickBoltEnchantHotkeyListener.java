@@ -76,13 +76,13 @@ public class OneTickBoltEnchantHotkeyListener extends MouseAdapter implements Ke
 			int key_code = e.getKeyCode();
 			if (key_code == config.key1().getKeyCode())
 			{
-				addCommands("openmage", plugin);
-				//plugin.runboltenchanting = true;
+				//addCommands("openmage", plugin);
+				plugin.runboltenchanting = true;
 			}
 			if (key_code == config.key2().getKeyCode())
 			{
-				addCommands("enchantbolt", plugin);
-				//plugin.runboltenchanting = false;
+				//addCommands("enchantbolt", plugin);
+				plugin.runboltenchanting = false;
 			}
 
 		}
