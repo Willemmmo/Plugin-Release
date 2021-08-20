@@ -36,7 +36,7 @@ public class OneTickBoltEnchantHotkeyListener extends MouseAdapter implements Ke
 		for (String c : command.split("\\s*\n\\s*"))
 		{
 			System.out.println("Creating Command");
-			plugin.commandList.add(ScriptCommandFactory.builder(c));
+			//plugin.commandList.add(ScriptCommandFactory.builder(c));
 		}
 	}
 
@@ -45,7 +45,7 @@ public class OneTickBoltEnchantHotkeyListener extends MouseAdapter implements Ke
 		for (String c : command.split("\\s*\n\\s*"))
 		{
 			System.out.println("Creating Command");
-			plugin.commandList.add(ScriptCommandFactory.builder(c));
+			//plugin.commandList.add(ScriptCommandFactory.builder(c));
 		}
 	}
 
