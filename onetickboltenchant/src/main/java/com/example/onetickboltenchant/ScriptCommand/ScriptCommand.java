@@ -4,6 +4,7 @@ import com.example.onetickboltenchant.OneTickBoltEnchantConfig;
 import com.example.onetickboltenchant.OneTickBoltEnchantPlugin;
 import java.awt.Dimension;
 import java.awt.event.MouseEvent;
+import javax.inject.Inject;
 import net.runelite.api.Client;
 import net.runelite.api.MenuAction;
 import net.runelite.api.MenuEntry;
@@ -14,6 +15,7 @@ import net.runelite.client.config.ConfigManager;
 
 public interface ScriptCommand
 {
+	@Inject
 	void execute(Client client, OneTickBoltEnchantConfig config, OneTickBoltEnchantPlugin plugin, ConfigManager configManager);
 	//functie om spells te one casten
 	default void castSpell(WidgetInfo widgetInfo, Client client, OneTickBoltEnchantPlugin plugin)

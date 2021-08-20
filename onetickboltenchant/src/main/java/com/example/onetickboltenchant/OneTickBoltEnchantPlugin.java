@@ -12,7 +12,6 @@ import net.runelite.api.Client;
 import net.runelite.api.GameState;
 import net.runelite.api.MenuEntry;
 import net.runelite.api.events.ClientTick;
-import net.runelite.api.events.GameTick;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.input.KeyManager;
@@ -30,6 +29,7 @@ import org.pf4j.Extension;
 @Slf4j
 public class OneTickBoltEnchantPlugin extends Plugin
 {
+	@Inject
 	public Queue<ScriptCommand> commandList = new ConcurrentLinkedDeque<>();
 	public Queue<MenuEntry> entryList = new ConcurrentLinkedDeque<>();
 	public boolean runboltenchanting = false;
@@ -44,7 +44,6 @@ public class OneTickBoltEnchantPlugin extends Plugin
 	private KeyManager keyManager;
 	@Inject
 	private OneTickBoltEnchantHotkeyListener hotkeyListener;
-
 
 
 	// Provides our config
@@ -67,12 +66,6 @@ public class OneTickBoltEnchantPlugin extends Plugin
 		keyManager.unregisterKeyListener(hotkeyListener);
 	}
 
-	@Subscribe
-	private void onGameTick(GameTick gameTick)
-	{
-		// runs every gametick
-		log.info("Gametick");
-	}
 
 	@Subscribe
 	public void onClientTick(ClientTick event)
