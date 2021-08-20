@@ -40,7 +40,7 @@ public class OneTickBoltEnchantHotkeyListener extends MouseAdapter implements Ke
 		}
 	}
 
-	public void addTickCommand(String command, OneTickBoltEnchantPlugin plugin)
+	static void addTickCommand(String command, OneTickBoltEnchantPlugin plugin)
 	{
 		for (String c : command.split("\\s*\n\\s*"))
 		{

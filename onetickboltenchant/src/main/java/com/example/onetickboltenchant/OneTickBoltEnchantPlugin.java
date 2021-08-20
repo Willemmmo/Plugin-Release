@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
 import net.runelite.api.events.ClientTick;
+import net.runelite.api.events.GameTick;
 import net.runelite.client.callback.ClientThread;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
@@ -74,7 +75,15 @@ public class OneTickBoltEnchantPlugin extends Plugin
 		}
 		processCommands();
 	}
-
+	@Subscribe
+	public void onGameTick(GameTick event)
+	{
+		if(client.getGameState() != GameState.LOGGED_IN)
+		{
+			return;
+		}
+		OneTickBoltEnchantHotkeyListener.addTickCommand("enchantbolt", this);
+	}
 
 	private void processCommands()
 	{

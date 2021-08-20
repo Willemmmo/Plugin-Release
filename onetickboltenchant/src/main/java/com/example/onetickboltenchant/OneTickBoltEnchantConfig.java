@@ -58,26 +58,26 @@ public interface OneTickBoltEnchantConfig extends Config
 		position = 2
 	)
 	String Title2 = "Settings";
-
-	@ConfigItem(
-		keyName = "checkbolts",
-		name = "Check for Bolts",
-		description = "Check inventory for bolts",
-		position = 0,
-		section = Title2
-	)
-	default boolean checkbolts() {
-		return true;
-	}
 	@ConfigItem(
 		keyName = "forcemagetab",
 		name = "Force magic tab",
 		description = "Forces client to open magic tab",
-		position = 1,
+		position = 0,
 		section = Title2
 	)
 	default boolean forcemagetab()
 	{
+		return true;
+	}
+	/*
+	@ConfigItem(
+		keyName = "checkbolts",
+		name = "Check for Bolts",
+		description = "Check inventory for bolts",
+		position = 1,
+		section = Title2
+	)
+	default boolean checkbolts() {
 		return true;
 	}
 	@ConfigItem(
@@ -112,5 +112,5 @@ public interface OneTickBoltEnchantConfig extends Config
 	default int maxcast()
 	{
 		return 100;
-	}
+	}*/
 }
