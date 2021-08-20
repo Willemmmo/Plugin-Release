@@ -18,8 +18,6 @@ import kotlin.collections.ArrayList
 
 open class BootstrapTask : DefaultTask() {
 
-    private var gitURL: String = "Willemmmo/Plugin-Release"
-
     private fun formatDate(date: Date?) = with(date ?: Date()) {
         SimpleDateFormat("yyyy-MM-dd").format(this)
     }
@@ -28,15 +26,10 @@ open class BootstrapTask : DefaultTask() {
         return MessageDigest.getInstance("SHA-512").digest(file).fold("", { str, it -> str + "%02x".format(it) }).toUpperCase()
     }
 
-    private fun getBootstrap(): JSONArray? {
-        val client = OkHttpClient()
-        val url = "https://raw.githubusercontent.com/${gitURL}/master/plugins.json"
-        //val bootstrapFile = File(filename).readLines()
-        val request = Request.Builder()
-            .url(url)
-            .build()
-        client.newCall(request).execute().use { response -> return JSONObject("{\"plugins\":${response.body!!.string()}}").getJSONArray("plugins") }
-        //return JSONObject("{\"plugins\":$bootstrapFile}").getJSONArray("plugins")
+    private fun getBootstrap(filename: String): JSONArray? {
+        val bootstrapFile = File(filename).readLines()
+
+        return JSONObject("{\"plugins\":$bootstrapFile}").getJSONArray("plugins")
     }
 
     @TaskAction
@@ -48,7 +41,7 @@ open class BootstrapTask : DefaultTask() {
             bootstrapReleaseDir.mkdirs()
 
             val plugins = ArrayList<JSONObject>()
-            val baseBootstrap = getBootstrap() ?: throw RuntimeException("Base bootstrap is null!")
+            val baseBootstrap = getBootstrap("$bootstrapDir/plugins.json") ?: throw RuntimeException("Base bootstrap is null!")
 
             project.subprojects.forEach {
                 if (it.project.properties.containsKey("PluginName") && it.project.properties.containsKey("PluginDescription")) {
@@ -58,20 +51,20 @@ open class BootstrapTask : DefaultTask() {
                     val releases = ArrayList<JsonBuilder>()
 
                     releases.add(JsonBuilder(
-                            "version" to it.project.version,
-                            "requires" to ProjectVersions.apiVersion,
-                            "date" to formatDate(Date()),
-                            "url" to "${project.rootProject.extra.get("GithubUrl")}/blob/master/release/${it.project.name}-${it.project.version}.jar?raw=true",
-                            "sha512sum" to hash(plugin.readBytes())
+                        "version" to it.project.version,
+                        "requires" to ProjectVersions.apiVersion,
+                        "date" to formatDate(Date()),
+                        "url" to "${project.rootProject.extra.get("GithubUrl")}/blob/master/release/${it.project.name}-${it.project.version}.jar?raw=true",
+                        "sha512sum" to hash(plugin.readBytes())
                     ))
 
                     val pluginObject = JsonBuilder(
-                            "name" to it.project.extra.get("PluginName"),
-                            "id" to nameToId(it.project.extra.get("PluginName") as String),
-                            "description" to it.project.extra.get("PluginDescription"),
-                            "provider" to it.project.extra.get("PluginProvider"),
-                            "projectUrl" to it.project.extra.get("ProjectSupportUrl"),
-                            "releases" to releases.toTypedArray()
+                        "name" to it.project.extra.get("PluginName"),
+                        "id" to nameToId(it.project.extra.get("PluginName") as String),
+                        "description" to it.project.extra.get("PluginDescription"),
+                        "provider" to it.project.extra.get("PluginProvider"),
+                        "projectUrl" to it.project.extra.get("ProjectSupportUrl"),
+                        "releases" to releases.toTypedArray()
                     ).jsonObject()
 
                     for (i in 0 until baseBootstrap.length()) {
@@ -96,7 +89,7 @@ open class BootstrapTask : DefaultTask() {
                         plugins.add(pluginObject)
                     }
 
-                    //plugin.copyTo(Paths.get(bootstrapReleaseDir.toString(), "${it.project.name}-${it.project.version}.jar").toFile())
+                    plugin.copyTo(Paths.get(bootstrapReleaseDir.toString(), "${it.project.name}-${it.project.version}.jar").toFile())
                 }
             }
 
