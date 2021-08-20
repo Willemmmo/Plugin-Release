@@ -29,7 +29,7 @@ import org.pf4j.Extension;
 @Slf4j
 public class OneTickBoltEnchantPlugin extends Plugin
 {
-	//public Queue<ScriptCommand> commandList = new ConcurrentLinkedDeque<>();
+	public Queue<ScriptCommand> commandList = new ConcurrentLinkedDeque<>();
 	public Queue<MenuEntry> entryList = new ConcurrentLinkedDeque<>();
 	public boolean runboltenchanting = false;
 	@Inject
@@ -81,15 +81,15 @@ public class OneTickBoltEnchantPlugin extends Plugin
 		{
 			return;
 		}
-		//processCommands();
+		processCommands();
 	}
 
 
-	//private void processCommands()
-	//{
-	//	while (commandList.peek() != null)
-	//	{
-	//		commandList.poll().execute(client, config, this, configManager);
-	//	}
-	//}
+	private void processCommands()
+	{
+		while (commandList.peek() != null)
+		{
+			commandList.poll().execute(client, config, this, configManager);
+		}
+	}
 }
