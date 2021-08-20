@@ -43,8 +43,6 @@ public class OneTickBoltEnchantPlugin extends Plugin
 	private KeyManager keyManager;
 	@Inject
 	private OneTickBoltEnchantHotkeyListener hotkeyListener;
-	@Inject
-	private ScriptCommand scriptCommand;
 
 
 	// Provides our config
@@ -67,6 +65,14 @@ public class OneTickBoltEnchantPlugin extends Plugin
 		keyManager.unregisterKeyListener(hotkeyListener);
 	}
 
+	public void handleHotkeyTasks()
+	{
+		if (entryList == null || entryList.isEmpty())
+		{
+			return;
+		}
+		log.info("client send");
+	}
 
 	@Subscribe
 	public void onClientTick(ClientTick event)

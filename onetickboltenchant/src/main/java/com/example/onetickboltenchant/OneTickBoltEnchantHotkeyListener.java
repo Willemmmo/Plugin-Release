@@ -8,7 +8,6 @@ import java.time.Instant;
 import javax.inject.Inject;
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
-import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.input.KeyListener;
 
@@ -25,12 +24,13 @@ public class OneTickBoltEnchantHotkeyListener extends MouseAdapter implements Ke
 	private ConfigManager configManager;
 
 	@Inject
-	private OneTickBoltEnchantHotkeyListener(Client client, OneTickBoltEnchantPlugin plugin, OneTickBoltEnchantConfig config)
+	private OneTickBoltEnchantHotkeyListener(Client client, OneTickBoltEnchantConfig config, OneTickBoltEnchantPlugin plugin)
 	{
 		this.client = client;
 		this.config = config;
 		this.plugin = plugin;
 	}
+
 	private void addCommands(String command, OneTickBoltEnchantPlugin plugin)
 	{
 		for (String c : command.split("\\s*\n\\s*"))
@@ -39,6 +39,7 @@ public class OneTickBoltEnchantHotkeyListener extends MouseAdapter implements Ke
 			plugin.commandList.add(ScriptCommandFactory.builder(c));
 		}
 	}
+
 	public void addTickCommand(String command, OneTickBoltEnchantPlugin plugin)
 	{
 		for (String c : command.split("\\s*\n\\s*"))
@@ -47,11 +48,13 @@ public class OneTickBoltEnchantHotkeyListener extends MouseAdapter implements Ke
 			plugin.commandList.add(ScriptCommandFactory.builder(c));
 		}
 	}
+
 	@Override
 	public void keyTyped(KeyEvent e)
 	{
 
 	}
+
 	@Override
 	public void keyPressed(KeyEvent e)
 	{
@@ -86,6 +89,7 @@ public class OneTickBoltEnchantHotkeyListener extends MouseAdapter implements Ke
 			ex.printStackTrace();
 		}
 	}
+
 	@Override
 	public void keyReleased(KeyEvent e)
 	{

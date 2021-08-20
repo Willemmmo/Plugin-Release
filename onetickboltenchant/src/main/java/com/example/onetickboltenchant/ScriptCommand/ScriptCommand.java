@@ -4,7 +4,6 @@ import com.example.onetickboltenchant.OneTickBoltEnchantConfig;
 import com.example.onetickboltenchant.OneTickBoltEnchantPlugin;
 import java.awt.Dimension;
 import java.awt.event.MouseEvent;
-import javax.inject.Inject;
 import net.runelite.api.Client;
 import net.runelite.api.MenuAction;
 import net.runelite.api.MenuEntry;
@@ -13,22 +12,27 @@ import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.config.ConfigManager;
 
+
 public interface ScriptCommand
 {
-	@Inject
 	void execute(Client client, OneTickBoltEnchantConfig config, OneTickBoltEnchantPlugin plugin, ConfigManager configManager);
-	//functie om spells te one casten
+
+	//this function is to one cast a spell
 	default void castSpell(WidgetInfo widgetInfo, Client client, OneTickBoltEnchantPlugin plugin)
 	{
 		try
 		{
-			Widget spellbook_widget = client.getWidget(widgetInfo);
-			if (spellbook_widget == null)
+			Widget spell_widget = client.getWidget(widgetInfo);
+
+			if (spell_widget == null)
 			{
 				return;
 			}
-			plugin.entryList.add(new MenuEntry(spellbook_widget.getTargetVerb(), spellbook_widget.getName(), 1, MenuAction.CC_OP.getId(), spellbook_widget.getItemId(), spellbook_widget.getId(), false));
-			clickfunction(client);
+			//System.out.print("target" + spell_widget.getTargetVerb() + ". name " + spell_widget.getName() +
+			//	". MenuAction : " + MenuAction.CC_OP.getId() + ". widgetItemID: " + spell_widget.getItemId() +
+			//	". ID: " + spell_widget.getId());
+			plugin.entryList.add(new MenuEntry(spell_widget.getTargetVerb(), spell_widget.getName(), 1, MenuAction.CC_OP.getId(), spell_widget.getItemId(), spell_widget.getId(), false));
+			click(client);
 		}
 		catch (Exception e)
 		{
@@ -48,7 +52,7 @@ public interface ScriptCommand
 				return;
 			}
 			plugin.entryList.add(new MenuEntry("Magic", "", 1, MenuAction.CC_OP.getId(), tab_widget.getItemId(), tab_widget.getId(), false));
-			clickfunction(client);
+			click(client);
 		}
 		catch (Exception e)
 		{
@@ -56,7 +60,8 @@ public interface ScriptCommand
 			e.printStackTrace();
 		}
 	}
-	default void clickfunction(Client client)
+
+	default void click(Client client)
 	{
 		Point pos = client.getMouseCanvasPosition();
 
@@ -78,13 +83,14 @@ public interface ScriptCommand
 		client.getCanvas().dispatchEvent(new MouseEvent(client.getCanvas(), 500, System.currentTimeMillis(), 0, pos.getX(), pos.getY(), 1, false, 1));
 	}
 }
+
 class EnchantBoltCommand implements ScriptCommand
 {
 	public void execute(Client client, OneTickBoltEnchantConfig config, OneTickBoltEnchantPlugin plugin, ConfigManager configManager)
 	{
 		try
 		{
-			castSpell(WidgetInfo.SPELL_ENCHANT_CROSSBOW_BOLT,client,plugin);
+			castSpell(WidgetInfo.SPELL_ENCHANT_CROSSBOW_BOLT, client, plugin);
 		}
 		catch (Exception e)
 		{
@@ -93,6 +99,23 @@ class EnchantBoltCommand implements ScriptCommand
 		}
 	}
 }
+
+class BonesToBananaCommand implements ScriptCommand
+{
+	public void execute(Client client, OneTickBoltEnchantConfig config, OneTickBoltEnchantPlugin plugin, ConfigManager configManager)
+	{
+		try
+		{
+			castSpell(WidgetInfo.SPELL_BONES_TO_BANANAS, client, plugin);
+		}
+		catch (Exception e)
+		{
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+}
+
 class OpenMageTabCommand implements ScriptCommand
 {
 	public void execute(Client client, OneTickBoltEnchantConfig config, OneTickBoltEnchantPlugin plugin, ConfigManager configManager)
@@ -126,7 +149,6 @@ class OpenMageTabCommand implements ScriptCommand
 			if (spellbook.isHidden())
 			{
 				OpenTab(view, client, plugin);
-
 			}
 		}
 		catch (Exception e)
@@ -136,6 +158,7 @@ class OpenMageTabCommand implements ScriptCommand
 		}
 	}
 }
+
 class ExceptionCommand implements ScriptCommand
 {
 	public void execute(Client client, OneTickBoltEnchantConfig config, OneTickBoltEnchantPlugin plugin, ConfigManager configManager)
