@@ -48,6 +48,22 @@ subprojects {
             options.encoding = "UTF-8"
         }
 
+        withType<Jar> {
+            doLast {
+                copy {
+                    from("./build/libs/")
+                    into("../release/")
+                }
+            }
+        }
+        withType<Jar> {
+            doLast {
+                copy {
+                    from("./build/libs/")
+                    into(System.getProperty("user.home") + "/.openosrs/plugins")
+                }
+            }
+        }
         withType<AbstractArchiveTask> {
             isPreserveFileTimestamps = false
             isReproducibleFileOrder = true
