@@ -13,7 +13,6 @@ import net.runelite.api.GameState;
 import net.runelite.api.MenuEntry;
 import net.runelite.api.events.ClientTick;
 import net.runelite.api.events.GameTick;
-import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.input.KeyManager;
@@ -36,7 +35,7 @@ public class OneTickBoltEnchantPlugin extends Plugin
 	public boolean runboltenchanting = false;
 	@Inject
 	private Client client;
-	//@Getter(AccessLevel.PACKAGE);
+	@Getter(AccessLevel.PACKAGE)
 	@Inject
 	private OneTickBoltEnchantConfig config;
 	@Inject
@@ -45,6 +44,8 @@ public class OneTickBoltEnchantPlugin extends Plugin
 	private KeyManager keyManager;
 	@Inject
 	private OneTickBoltEnchantHotkeyListener hotkeyListener;
+
+
 
 	// Provides our config
 	@Provides
@@ -72,6 +73,7 @@ public class OneTickBoltEnchantPlugin extends Plugin
 		// runs every gametick
 		log.info("Gametick");
 	}
+
 	@Subscribe
 	public void onClientTick(ClientTick event)
 	{
@@ -83,11 +85,11 @@ public class OneTickBoltEnchantPlugin extends Plugin
 	}
 
 
-
 	private void processCommands()
 	{
-		while (commandList.peek() != null){
-			commandList.poll().execute(client,config,this,configManager);
+		while (commandList.peek() != null)
+		{
+			commandList.poll().execute(client, config, this, configManager);
 		}
 	}
 }
