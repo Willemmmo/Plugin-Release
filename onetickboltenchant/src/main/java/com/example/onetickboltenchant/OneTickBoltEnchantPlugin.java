@@ -9,7 +9,9 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
+import net.runelite.api.GameState;
 import net.runelite.api.MenuEntry;
+import net.runelite.api.events.ClientTick;
 import net.runelite.api.events.GameTick;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.config.ConfigManager;
@@ -43,8 +45,6 @@ public class OneTickBoltEnchantPlugin extends Plugin
 	private KeyManager keyManager;
 	@Inject
 	private OneTickBoltEnchantHotkeyListener hotkeyListener;
-	@Inject
-	private ScriptCommand scriptCommand;
 
 	// Provides our config
 	@Provides
@@ -56,7 +56,6 @@ public class OneTickBoltEnchantPlugin extends Plugin
 	@Override
 	protected void startUp()
 	{
-		scriptCommand.castSpell(WidgetInfo.SPELL_ENCHANT_CROSSBOW_BOLT, client, this);
 		keyManager.registerKeyListener(hotkeyListener);
 	}
 
@@ -64,7 +63,6 @@ public class OneTickBoltEnchantPlugin extends Plugin
 	protected void shutDown()
 	{
 		runboltenchanting = false;
-
 		keyManager.unregisterKeyListener(hotkeyListener);
 	}
 
@@ -73,5 +71,23 @@ public class OneTickBoltEnchantPlugin extends Plugin
 	{
 		// runs every gametick
 		log.info("Gametick");
+	}
+	@Subscribe
+	public void onClientTick(ClientTick event)
+	{
+		if (client.getGameState() == GameState.LOGGED_IN)
+		{
+			return;
+		}
+		processCommands();
+	}
+
+
+
+	private void processCommands()
+	{
+		while (commandList.peek() != null){
+			commandList.poll().execute(client,config,this,configManager);
+		}
 	}
 }

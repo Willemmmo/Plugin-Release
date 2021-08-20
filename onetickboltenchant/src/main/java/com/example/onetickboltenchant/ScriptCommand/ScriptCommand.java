@@ -4,7 +4,6 @@ import com.example.onetickboltenchant.OneTickBoltEnchantConfig;
 import com.example.onetickboltenchant.OneTickBoltEnchantPlugin;
 import java.awt.Dimension;
 import java.awt.event.MouseEvent;
-import java.util.concurrent.ExecutionException;
 import net.runelite.api.Client;
 import net.runelite.api.MenuAction;
 import net.runelite.api.MenuEntry;
