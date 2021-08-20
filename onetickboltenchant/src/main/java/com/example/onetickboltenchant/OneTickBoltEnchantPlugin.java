@@ -29,7 +29,6 @@ import org.pf4j.Extension;
 @Slf4j
 public class OneTickBoltEnchantPlugin extends Plugin
 {
-	@Inject
 	public Queue<ScriptCommand> commandList = new ConcurrentLinkedDeque<>();
 	public Queue<MenuEntry> entryList = new ConcurrentLinkedDeque<>();
 	public boolean runboltenchanting = false;
@@ -44,6 +43,8 @@ public class OneTickBoltEnchantPlugin extends Plugin
 	private KeyManager keyManager;
 	@Inject
 	private OneTickBoltEnchantHotkeyListener hotkeyListener;
+	@Inject
+	private ScriptCommand scriptCommand;
 
 
 	// Provides our config

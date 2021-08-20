@@ -25,7 +25,6 @@
 
 rootProject.name = "Willemmmo Plugins"
 
-include(":kotlinexample")
 include(":javaexample")
 include(":onetickboltenchant")
 
