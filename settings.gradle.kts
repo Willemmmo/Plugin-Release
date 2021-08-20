@@ -25,8 +25,8 @@
 
 rootProject.name = "Willemmmo Plugins"
 
-include(":kotlinexample")
-include(":javaexample")
+//include(":kotlinexample")
+//include(":javaexample")
 include(":onetickboltenchant")
 
 for (project in rootProject.children) {
