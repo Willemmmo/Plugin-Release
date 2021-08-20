@@ -8,17 +8,13 @@ public class ScriptCommandFactory
 		{
 			case "enchantbolt":
 				return new EnchantBoltCommand();
+			case "openinventory":
+				return new OpenInventoryTabCommand();
 			case "openmage":
 				return new OpenMageTabCommand();
 			default:
-				if (scriptCommand.toLowerCase().startsWith("group"))
-				{
-					return new ExceptionCommand();
-				}
-				else
-				{
-					return new ExceptionCommand();
-				}
+				return new ExceptionCommand();
+
 		}
 	}
 }

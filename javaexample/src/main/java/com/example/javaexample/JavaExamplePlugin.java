@@ -54,6 +54,6 @@ public class JavaExamplePlugin extends Plugin
 	private void onGameTick(GameTick gameTick)
 	{
 		// runs every gametick
-		log.info("Gametick");
+		//log.info("Gametick");
 	}
 }

@@ -10,8 +10,8 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
-import net.runelite.api.MenuEntry;
 import net.runelite.api.events.ClientTick;
+import net.runelite.client.callback.ClientThread;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.input.KeyManager;
@@ -30,8 +30,9 @@ import org.pf4j.Extension;
 public class OneTickBoltEnchantPlugin extends Plugin
 {
 	public Queue<ScriptCommand> commandList = new ConcurrentLinkedDeque<>();
-	public Queue<MenuEntry> entryList = new ConcurrentLinkedDeque<>();
 	public boolean runboltenchanting = false;
+	@Inject
+	public ClientThread clientThread;
 	@Inject
 	private Client client;
 	@Getter(AccessLevel.PACKAGE)
@@ -43,7 +44,6 @@ public class OneTickBoltEnchantPlugin extends Plugin
 	private KeyManager keyManager;
 	@Inject
 	private OneTickBoltEnchantHotkeyListener hotkeyListener;
-
 
 	// Provides our config
 	@Provides
@@ -65,19 +65,10 @@ public class OneTickBoltEnchantPlugin extends Plugin
 		keyManager.unregisterKeyListener(hotkeyListener);
 	}
 
-	public void handleHotkeyTasks()
-	{
-		if (entryList == null || entryList.isEmpty())
-		{
-			return;
-		}
-		log.info("client send");
-	}
-
 	@Subscribe
 	public void onClientTick(ClientTick event)
 	{
-		if (client.getGameState() == GameState.LOGGED_IN)
+		if (client.getGameState() != GameState.LOGGED_IN)
 		{
 			return;
 		}
