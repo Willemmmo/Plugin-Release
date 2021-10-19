@@ -1,6 +1,7 @@
 package com.example.onetickboltenchant;
 
 import com.example.onetickboltenchant.ScriptCommand.ScriptCommand;
+import com.example.onetickboltenchant.ScriptCommand.ScriptCommandFactory;
 import com.google.inject.Provides;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedDeque;

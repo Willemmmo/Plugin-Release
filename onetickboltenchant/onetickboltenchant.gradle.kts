@@ -1,6 +1,6 @@
 import ProjectVersions.openosrsVersion
 
-version = "1.1.2"
+version = "1.1.3"
 
 project.extra["PluginName"] = "One Tick EnchantBolts" // This is the name that is used in the external plugin manager panel
 project.extra["PluginDescription"] = "Plugin to enchant bolts for you" // This is the description that is used in the external plugin manager panel

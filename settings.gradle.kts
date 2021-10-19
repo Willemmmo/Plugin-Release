@@ -2,6 +2,7 @@ rootProject.name = "Willemmmo Plugins"
 
 include(":javaexample")
 include(":onetickboltenchant")
+include(":constructionhelper")
 
 for (project in rootProject.children) {
     project.apply {
