@@ -111,7 +111,7 @@ public interface ConstructionHelperConfig extends Config
 	)
 	default String Key2_Script()
 	{
-		return new String("Click here to continue\nMaster, if thou desirest my\n");
+		return new String("Click here to continue\nMaster, if thou desirest my\nOkay, here's");
 	}
 
 	@ConfigItem(
