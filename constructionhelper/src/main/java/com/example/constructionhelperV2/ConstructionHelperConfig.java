@@ -89,7 +89,10 @@ public interface ConstructionHelperConfig extends Config
 		name = "Press key on Dialog",
 		description = "Press this key on dialog",
 		position = 1,
-		section = DialogSetup1
+		section = DialogSetup1,
+		hidden = true,
+		unhide = "EnableDialogKey",
+		unhideValue = "true"
 	)
 	default Keybind DialogHotkey1()
 	{
@@ -101,7 +104,10 @@ public interface ConstructionHelperConfig extends Config
 		name = "Lines to press Key 1",
 		description = "Fill in lines",
 		position = 2,
-		section = DialogSetup1
+		section = DialogSetup1,
+		hidden = true,
+		unhide = "EnableDialogKey",
+		unhideValue = "true"
 	)
 	default String Key1_Script()
 	{
@@ -123,7 +129,10 @@ public interface ConstructionHelperConfig extends Config
 		name = "Press key on Butler",
 		description = "Press key on Butler",
 		position = 1,
-		section = Butler_Setup
+		section = Butler_Setup,
+		hidden = true,
+		unhide = "EnableButlerKey",
+		unhideValue = "true"
 	)
 	default Keybind ButlerHotkey()
 	{
@@ -132,19 +141,22 @@ public interface ConstructionHelperConfig extends Config
 
 	@ConfigItem(
 		keyName = "Key2_Script",
-		name = "Lines to press Butler",
+		name = "Press butler key",
 		description = "Fill in lines",
 		position = 2,
-		section = Butler_Setup
+		section = Butler_Setup,
+		hidden = true,
+		unhide = "EnableButlerKey",
+		unhideValue = "true"
 	)
 	default String Key2_Script()
 	{
-		return new String("Click here to continue\nMaster, if thou desirest my\nOkay, here's\nThank you, Master");
+		return new String("Click here to continue\nMaster, if thou desirest my\nThank you, Master");
 	}
 
 	@ConfigItem(
 		keyName = "Key3_Script",
-		name = "Lines to avoid pressing",
+		name = "Press nothing/fetch data",
 		description = "Fill in lines",
 		position = 3,
 		section = Butler_Setup
@@ -169,7 +181,10 @@ public interface ConstructionHelperConfig extends Config
 		name = "Press key on Construction Widget",
 		description = "Press this key on Construction Widget",
 		position = 1,
-		section = ConstructionWidgetSetup
+		section = ConstructionWidgetSetup,
+		hidden = true,
+		unhide = "EnableConstructionKey",
+		unhideValue = "true"
 	)
 	default Keybind ConstructionHotkey()
 	{
