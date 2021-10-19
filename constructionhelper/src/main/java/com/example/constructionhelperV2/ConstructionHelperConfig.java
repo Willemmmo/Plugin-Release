@@ -84,6 +84,7 @@ public interface ConstructionHelperConfig extends Config
 	{
 		return false;
 	}
+
 	@ConfigItem(
 		keyName = "DialogHotkey1",
 		name = "Press key on Dialog",
@@ -111,8 +112,9 @@ public interface ConstructionHelperConfig extends Config
 	)
 	default String Key1_Script()
 	{
-		return new String("Fetch from bank\nRepeat last task?\nReally remove it?\nOkay, here's");
+		return "Fetch from bank\nRepeat last task?\nReally remove it?\nOkay, here's";
 	}
+
 	@ConfigItem(
 		keyName = "EnableButlerKey",
 		name = "Enable Butler Key",
@@ -124,6 +126,7 @@ public interface ConstructionHelperConfig extends Config
 	{
 		return false;
 	}
+
 	@ConfigItem(
 		keyName = "ButlerHotkey",
 		name = "Press key on Butler",
@@ -151,7 +154,7 @@ public interface ConstructionHelperConfig extends Config
 	)
 	default String Key2_Script()
 	{
-		return new String("Click here to continue\nMaster, if thou desirest my\nThank you, Master");
+		return "Click here to continue\nMaster, if thou desirest my\nThank you, Master";
 	}
 
 	@ConfigItem(
@@ -163,8 +166,9 @@ public interface ConstructionHelperConfig extends Config
 	)
 	default String Key3_Script()
 	{
-		return new String("Master, I have returned with what you asked me to\nMaster, I have returned with what thou asked me to");
+		return "Master, I have returned with what you asked me to\nMaster, I have returned with what thou asked me to";
 	}
+
 	@ConfigItem(
 		keyName = "EnableConstructionKey",
 		name = "Enable Construction Key",
@@ -176,6 +180,7 @@ public interface ConstructionHelperConfig extends Config
 	{
 		return false;
 	}
+
 	@ConfigItem(
 		keyName = "ConstructionHotkey",
 		name = "Press key on Construction Widget",
