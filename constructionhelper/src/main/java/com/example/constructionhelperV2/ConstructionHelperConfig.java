@@ -46,7 +46,7 @@ public interface ConstructionHelperConfig extends Config
 
 	@ConfigSection(
 		keyName = "DialogSetup1",
-		name = "DialogSetup",
+		name = "Dialog Setup",
 		description = "Dialog Setup for removing items/using butler",
 		position = 1
 	)
@@ -55,9 +55,16 @@ public interface ConstructionHelperConfig extends Config
 		keyName = "ConstructionWidgetSetup",
 		name = "Construction Widget Setup",
 		description = "Setup actions Construction Widget",
-		position = 2
+		position = 3
 	)
 	String ConstructionWidgetSetup = "Construction_Widget_Setup";
+	@ConfigSection(
+		keyName = "Butler_Setup",
+		name = "Butler Setup",
+		description = "Setup the butler",
+		position = 2
+	)
+	String Butler_Setup = "Butler_Setup";
 	@ConfigSection(
 		keyName = "Developer_Options",
 		name = "Developer Options",
@@ -67,10 +74,21 @@ public interface ConstructionHelperConfig extends Config
 	String Developer_Options = "DeveloperOptions";
 
 	@ConfigItem(
+		keyName = "EnableDialogKey",
+		name = "Enable Dialog Key",
+		description = "Allows Dialog key use",
+		position = 0,
+		section = DialogSetup1
+	)
+	default boolean EnableDialogKey()
+	{
+		return false;
+	}
+	@ConfigItem(
 		keyName = "DialogHotkey1",
 		name = "Press key on Dialog",
 		description = "Press this key on dialog",
-		position = 0,
+		position = 1,
 		section = DialogSetup1
 	)
 	default Keybind DialogHotkey1()
@@ -82,20 +100,30 @@ public interface ConstructionHelperConfig extends Config
 		keyName = "Key1_Script",
 		name = "Lines to press Key 1",
 		description = "Fill in lines",
-		position = 1,
+		position = 2,
 		section = DialogSetup1
 	)
 	default String Key1_Script()
 	{
 		return new String("Fetch from bank\nRepeat last task?\nReally remove it?\nOkay, here's");
 	}
-
+	@ConfigItem(
+		keyName = "EnableButlerKey",
+		name = "Enable Butler Key",
+		description = "Allows butler key use",
+		position = 0,
+		section = Butler_Setup
+	)
+	default boolean EnableButlerKey()
+	{
+		return false;
+	}
 	@ConfigItem(
 		keyName = "ButlerHotkey",
 		name = "Press key on Butler",
 		description = "Press key on Butler",
-		position = 2,
-		section = DialogSetup1
+		position = 1,
+		section = Butler_Setup
 	)
 	default Keybind ButlerHotkey()
 	{
@@ -106,30 +134,41 @@ public interface ConstructionHelperConfig extends Config
 		keyName = "Key2_Script",
 		name = "Lines to press Butler",
 		description = "Fill in lines",
-		position = 3,
-		section = DialogSetup1
+		position = 2,
+		section = Butler_Setup
 	)
 	default String Key2_Script()
 	{
-		return new String("Click here to continue\nMaster, if thou desirest my\nOkay, here's");
+		return new String("Click here to continue\nMaster, if thou desirest my\nOkay, here's\nThank you, Master");
 	}
 
 	@ConfigItem(
 		keyName = "Key3_Script",
 		name = "Lines to avoid pressing",
 		description = "Fill in lines",
-		position = 4,
-		section = DialogSetup1
+		position = 3,
+		section = Butler_Setup
 	)
 	default String Key3_Script()
 	{
 		return new String("Master, I have returned with what you asked me to\nMaster, I have returned with what thou asked me to");
 	}
 	@ConfigItem(
+		keyName = "EnableConstructionKey",
+		name = "Enable Construction Key",
+		description = "Allows constrution key use",
+		position = 0,
+		section = ConstructionWidgetSetup
+	)
+	default boolean EnableConstructionKey()
+	{
+		return false;
+	}
+	@ConfigItem(
 		keyName = "ConstructionHotkey",
 		name = "Press key on Construction Widget",
 		description = "Press this key on Construction Widget",
-		position = 0,
+		position = 1,
 		section = ConstructionWidgetSetup
 	)
 	default Keybind ConstructionHotkey()

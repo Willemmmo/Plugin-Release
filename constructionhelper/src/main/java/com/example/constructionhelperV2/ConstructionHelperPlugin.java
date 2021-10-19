@@ -88,7 +88,7 @@ public class ConstructionHelperPlugin extends Plugin
 				String[] command1split = command1.split("\n");
 				for (String s : command1split)
 				{
-					if (child.getText().contains(s))
+					if (child.getText().contains(s) && config.EnableDialogKey())
 					{
 						try
 						{
@@ -118,7 +118,7 @@ public class ConstructionHelperPlugin extends Plugin
 				String[] command2split = config.Key2_Script().split("\n");
 				for (String s : command2split)
 				{
-					if (butlerwidget.getText().contains(s))
+					if (butlerwidget.getText().contains(s) && config.EnableButlerKey())
 					{
 						try
 						{
@@ -193,7 +193,7 @@ public class ConstructionHelperPlugin extends Plugin
 			//	}
 			//}
 		}
-		if (client.getWidget(config.ConstructionWidgetID(), config.ConstructionWidgetChildID()) != null && Objects.requireNonNull(client.getWidget(config.ConstructionWidgetID(), config.ConstructionWidgetChildID()).isHidden()) == false)
+		if (config.EnableConstructionKey() && client.getWidget(config.ConstructionWidgetID(), config.ConstructionWidgetChildID()) != null && Objects.requireNonNull(client.getWidget(config.ConstructionWidgetID(), config.ConstructionWidgetChildID()).isHidden()) == false)
 		{
 			try
 			{
