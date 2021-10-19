@@ -13,9 +13,9 @@ import net.runelite.api.events.GameTick;
 import net.runelite.api.widgets.Widget;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
-import net.runelite.client.input.KeyManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
+import net.runelite.client.ui.overlay.OverlayManager;
 import org.pf4j.Extension;
 
 @Extension
@@ -26,19 +26,17 @@ import org.pf4j.Extension;
 @Slf4j
 public class ConstructionHelperPlugin extends Plugin
 {
-	public int PlankOnButler = 0;
+	public int PlankOnButler = -1;
+	public String status = "Setting-Up..";
 	// Injects our config
 	@Inject
 	private ConstructionHelperConfig config;
 	@Inject
 	private Client client;
 	@Inject
-	private KeyManager keyManager;
-
-	public static int random_int(int Min, int Max)
-	{
-		return (int) (Math.random() * (Max - Min)) + Min;
-	}
+	private ConstructionHelperOverlay overlay;
+	@Inject
+	private OverlayManager overlayManager;
 
 	@Provides
 	ConstructionHelperConfig provideConfig(ConfigManager configManager)
@@ -51,7 +49,7 @@ public class ConstructionHelperPlugin extends Plugin
 	{
 		// runs on plugin startup
 		log.info("Plugin started");
-
+		overlayManager.add(overlay);
 		// example how to use config items
 		//if (config.example())
 		//{
@@ -64,11 +62,14 @@ public class ConstructionHelperPlugin extends Plugin
 	protected void shutDown()
 	{
 		log.info("Plugin stopped");
+		overlayManager.remove(overlay);
 	}
 
 	@Subscribe
 	public void onClientTick(ClientTick event)
 	{
+
+		status = "Amount of planks : " + PlankOnButler;
 		if (client.getGameState() != GameState.LOGGED_IN)
 		{
 			return;
@@ -76,7 +77,7 @@ public class ConstructionHelperPlugin extends Plugin
 		if (client.getWidget(config.DialogWidgetID(), config.DialogWidgetChildID()) != null && Objects.requireNonNull(client.getWidget(config.DialogWidgetID(), config.DialogWidgetChildID()).isHidden()) == false)
 		{
 			Widget[] children = client.getWidget(config.DialogWidgetID(), config.DialogWidgetChildID()).getChildren().clone();
-			for (int i = 0; i < children.length; i++)
+			for (Widget child : children)
 			{
 				String command1 = config.Key1_Script();
 				if (command1.isEmpty())
@@ -85,9 +86,9 @@ public class ConstructionHelperPlugin extends Plugin
 					return;
 				}
 				String[] command1split = command1.split("\n");
-				for (int j = 0; j < command1split.length; j++)
+				for (String s : command1split)
 				{
-					if (children[i].getText().contains(command1split[j]))
+					if (child.getText().contains(s))
 					{
 						try
 						{
@@ -115,9 +116,9 @@ public class ConstructionHelperPlugin extends Plugin
 					return;
 				}
 				String[] command2split = config.Key2_Script().split("\n");
-				for (int i = 0; i < command2split.length; i++)
+				for (String s : command2split)
 				{
-					if(butlerwidget.getText().contains(command2split[i]))
+					if (butlerwidget.getText().contains(s))
 					{
 						try
 						{
@@ -139,11 +140,12 @@ public class ConstructionHelperPlugin extends Plugin
 					return;
 				}
 				String[] command3split = config.Key3_Script().split("\n");
-				for (int i = 0; i < command3split.length; i++)
+				for (String s : command3split)
 				{
-					if(butlerwidget.getText().contains(command3split[i]))
+					if (butlerwidget.getText().contains(s))
 					{
-						if (butlerwidget.getText().length() < config.PlankID_MAX() && butlerwidget.getText().contains("Master, I have returned with what you asked me to")){
+						if (butlerwidget.getText().length() < config.PlankID_MAX())
+						{
 							PlankOnButler = 0;
 						}
 						if (butlerwidget.getText().length() >= config.PlankID_MAX())

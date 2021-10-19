@@ -123,7 +123,7 @@ public interface ConstructionHelperConfig extends Config
 	)
 	default String Key3_Script()
 	{
-		return new String("Master, I have returned with what you asked me to\n");
+		return new String("Master, I have returned with what you asked me to\nMaster, I have returned with what thou asked me to");
 	}
 	@ConfigItem(
 		keyName = "ConstructionHotkey",
