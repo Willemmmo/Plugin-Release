@@ -154,7 +154,7 @@ public interface ConstructionHelperConfig extends Config
 	)
 	default String Key2_Script()
 	{
-		return "Click here to continue\nMaster, if thou desirest my\nThank you, Master";
+		return "Click here to continue\nif thou desirest my\nThank you,";
 	}
 
 	@ConfigItem(
@@ -166,7 +166,7 @@ public interface ConstructionHelperConfig extends Config
 	)
 	default String Key3_Script()
 	{
-		return "Master, I have returned with what you asked me to\nMaster, I have returned with what thou asked me to";
+		return "I have returned with what ";
 	}
 
 	@ConfigItem(

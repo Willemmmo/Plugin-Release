@@ -150,14 +150,18 @@ public class ConstructionHelperPlugin extends Plugin
 				{
 					if (butlerwidget.getText().contains(s))
 					{
-						if (butlerwidget.getText().length() < config.PlankID_MAX())
+						for (int i = 1; i < 27 ; i++)
 						{
-							PlankOnButler = 0;
-						}
-						if (butlerwidget.getText().length() >= config.PlankID_MAX())
-						{
-							String amount_planks = butlerwidget.getText().substring(config.PlankID_MIN(), config.PlankID_MAX()).trim();
-							PlankOnButler = Integer.parseInt(amount_planks);
+							String PlankBuilder = "these " +i + " items";
+							if(butlerwidget.getText().contains(PlankBuilder))
+							{
+								PlankOnButler = i;
+								break;
+							}
+							else if(i == 26)
+							{
+								PlankOnButler = 0;
+							}
 						}
 					}
 				}
